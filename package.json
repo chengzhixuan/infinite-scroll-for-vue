@@ -1,42 +1,70 @@
 {
-  "name": "infinitescrollvue",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "infinitescrollvue",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
+    "dependencies": {
+        "core-js": "^3.6.5",
+        "vue": "^2.6.11"
     },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "~4.5.0",
+        "@vue/cli-plugin-eslint": "~4.5.0",
+        "@vue/cli-service": "~4.5.0",
+        "@vue/eslint-config-prettier": "^6.0.0",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^6.7.2",
+        "eslint-config-prettier": "^6.10.1",
+        "eslint-plugin-html": "^6.0.0",
+        "eslint-plugin-prettier": "^3.1.1",
+        "eslint-plugin-promise": "^4.2.1",
+        "eslint-plugin-vue": "^6.2.2",
+        "prettier": "^1.19.1",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "plugin:prettier/recommended",
+            "eslint:recommended"
+        ],
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "rules": {
+            "vue/no-use-v-if-with-v-for": [
+                "error",
+                {
+                    "allowUsingIterationVar": true
+                }
+            ],
+            "prettier/prettier": [
+                "error",
+                {
+                    "singleQuote": false,
+                    "tabWidth": 4,
+                    "vueIndentScriptAndStyle": true,
+                    "printWidth": 800
+                }
+            ],
+            "no-mixed-spaces-and-tabs": [
+                "error",
+                "smart-tabs"
+            ],
+            "rules": []
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ]
 }
