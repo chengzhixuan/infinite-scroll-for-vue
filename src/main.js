@@ -1,9 +1,8 @@
-import Vue from 'vue'
-import App from './App.vue'
-
-Vue.config.productionTip = false
-import scroll from './plugin/index.js'
-Vue.use(scroll)
+import Vue from "vue";
+import App from "./App.vue";
+import scroll from "./plugin/index.js";
+Vue.config.productionTip = false;
+Vue.use(scroll);
 new Vue({
-    render: h => h(App),
-}).$mount('#app')
+    render: (h) => h(App),
+}).$mount("#app");

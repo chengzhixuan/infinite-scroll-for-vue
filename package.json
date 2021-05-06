@@ -24,6 +24,8 @@
         "eslint-plugin-promise": "^4.2.1",
         "eslint-plugin-vue": "^6.2.2",
         "prettier": "^1.19.1",
+        "less": "^3.0.4",
+        "less-loader": "^5.0.0",
         "vue-template-compiler": "^2.6.11"
     },
     "eslintConfig": {
@@ -40,6 +42,7 @@
             "parser": "babel-eslint"
         },
         "rules": {
+            "no-unused-vars": "off",
             "vue/no-use-v-if-with-v-for": [
                 "error",
                 {
@@ -49,17 +52,23 @@
             "prettier/prettier": [
                 "error",
                 {
-                    "singleQuote": false,
+                    "semi": true,
                     "tabWidth": 4,
+                    "arrowParens": "always",
+                    "endOfLine": "auto",
+                    "disableLanguages": [
+                        "vue"
+                    ],
                     "vueIndentScriptAndStyle": true,
-                    "printWidth": 800
+                    "printWidth": 800,
+                    "trailingComma": "all"
                 }
             ],
+            "quotes": "off",
             "no-mixed-spaces-and-tabs": [
                 "error",
                 "smart-tabs"
-            ],
-            "rules": []
+            ]
         }
     },
     "browserslist": [
