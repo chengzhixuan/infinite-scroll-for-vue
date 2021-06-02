@@ -2,7 +2,7 @@
     <div @scroll="scrollTops" class="InfiniteScrollContainer">
         <div v-if="listAll.length > 0" class="InfiniteScroll" :style="{ height: listHeight + 10 + 'px' }">
             <div class="InfiniteScrollTop" :style="{ height: (renderList[0] ? renderList[0].scrollTop : 0) + 'px' }"></div>
-            <div class="InfiniteScrollItem" :ref="'OrderItem' + item.id + '_' + item.key" v-for="(item, index) in renderList" :key="item.id + '_' + item.key" :style="{ height: item.height + 'px' }">
+            <div class="InfiniteScrollItem" :ref="'InfiniteScrollItem' + item.infiniteScrollId" v-for="(item, index) in renderList" :key="item.infiniteScrollId + '_' + item.infiniteScrollKey">
                 <slot :item="item" :index="index" />
             </div>
         </div>
@@ -51,7 +51,7 @@
                 if (document.querySelector(".InfiniteScrollContainer")) {
                     this.scrollHeight = document.querySelector(".InfiniteScrollContainer").offsetHeight;
                 }
-            }, 1000);
+            }, 100);
             this.init();
         },
         methods: {
@@ -59,28 +59,18 @@
                 if (this.datas.length > 0) {
                     this.listAll = JSON.parse(JSON.stringify(this.datas));
                     this.listAll.forEach((i, index) => {
-                        i.index = index + 1;
-                        i.id = Math.random();
-                        i.key = Date.parse(new Date());
+                        i.infiniteScrollId = index;
+                        i.hasRenderDom = false;
+                        i.infiniteScrollKey = Date.parse(new Date());
                         i.scrollTop = index === 0 ? 0 : this.listAll[index - 1].scrollTop + this.listAll[index - 1].scrollHeight;
-                        i.height = parseInt(Math.random() * 100) + 10;
                         i.scrollHeight = this.defHeight;
                     });
                     this.renderList = this.listAll.slice(0, 20);
-                    this.getScrollTop();
-                }
-            },
-            getScrollTop() {
-                try {
                     this.$nextTick(() => {
                         this.renderList.forEach((i) => {
-                            this.listAll[i.index - 1].scrollHeight = this.$refs["OrderItem" + i.id + "_" + i.key][0].offsetHeight;
+                            this.renderListHeightChange(i);
                         });
                     });
-                } catch (err) {
-                    setTimeout(() => {
-                        this.getScrollTop();
-                    }, 100);
                 }
             },
             scrollTops(e) {
@@ -94,7 +84,7 @@
             getRenderList(scroll) {
                 let listAll = this.listAll;
                 if (scroll === 2) {
-                    listAll = this.listAll.reverse();
+                    listAll = [...this.listAll].reverse();
                     for (let i = 0; i < listAll.length; i++) {
                         if (i < listAll.length - 1) {
                             listAll[i].scrollTop = listAll[i + 1].scrollTop + listAll[i + 1].scrollHeight;
@@ -113,20 +103,33 @@
             renderListHas(v, hasSHow) {
                 let index = -1;
                 this.renderList.forEach((i, inx) => {
-                    if (v.id === i.id) {
+                    if (v.infiniteScrollId === i.infiniteScrollId) {
                         index = inx;
                     }
                 });
                 if (hasSHow && index !== -1) {
                     this.renderList[index] = v;
                 } else if (hasSHow && index === -1) {
-                    if (this.renderList.length > 0 && v.index < this.renderList[this.renderList.length - 1].index) {
+                    if (this.renderList.length > 0 && v.infiniteScrollId < this.renderList[this.renderList.length - 1].infiniteScrollId) {
                         this.renderList.unshift(v);
                     } else {
                         this.renderList.push(v);
                     }
+                    this.$nextTick(() => {
+                        this.renderListHeightChange(v);
+                    });
                 } else if (hasSHow === false && index !== -1) {
                     this.renderList.splice(index, 1);
+                }
+            },
+            renderListHeightChange(v) {
+                if (!v.hasRenderDom) {
+                    let offsetHeight = this.$refs["InfiniteScrollItem" + v.infiniteScrollId][0].offsetHeight;
+                    this.listAll[v.infiniteScrollId].scrollHeight = offsetHeight;
+                    v.scrollTop = v.infiniteScrollId === 0 ? 0 : this.listAll[v.infiniteScrollId - 1].scrollTop + this.listAll[v.infiniteScrollId - 1].scrollHeight;
+                    v.scrollHeight = offsetHeight;
+                    v.hasRenderDom = true;
+                    this.listAll.push();
                 }
             },
             // 订单是否在可视区域
@@ -136,8 +139,21 @@
                 } else if (item.scrollTop > this.scrollTop && item.scrollTop < this.scrollTop + this.scrollHeight) {
                     return true;
                 } else {
-                    return item.scrollTop + item.scrollHeight > this.scrollTop - 1000 && item.scrollTop + item.scrollHeight < this.scrollTop + this.scrollHeight + 1000;
+                    return item.scrollTop + item.scrollHeight > this.scrollTop - 300 && item.scrollTop + item.scrollHeight < this.scrollTop + this.scrollHeight + 300;
                 }
+            },
+            getAllList() {
+                let list = [];
+                this.listAll.forEach((e) => {
+                    let i = Object.assign({}, e);
+                    delete i.infiniteScrollId;
+                    delete i.hasRenderDom;
+                    delete i.infiniteScrollKey;
+                    delete i.scrollTop;
+                    delete i.scrollHeight;
+                    list.push(i);
+                });
+                return list;
             },
         },
     };

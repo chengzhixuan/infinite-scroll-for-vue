@@ -1,12 +1,17 @@
 <template>
     <div id="app">
-        <Scroll :datas="list">
-            <template v-slot:default="slotProps">
-                <div class="TestItem">
-                    {{ slotProps.item.name }}
-                </div>
-            </template>
-        </Scroll>
+        <button @click="getScroll">获取列表</button>
+        <div style="height: 300px">
+            <Scroll ref="Scroll" :datas="list">
+                <template v-slot:default="slotProps">
+                    <div class="TestItem">
+                        <span>{{ slotProps.item.name }}|{{ slotProps.item.scrollTop }} | {{ slotProps.item.scrollHeight }}</span>
+                        <span contenteditable @blur="(e) => change(e, slotProps.item)">{{ slotProps.item.text }}</span>
+                        <input type="text" v-model="slotProps.item.text" />
+                    </div>
+                </template>
+            </Scroll>
+        </div>
     </div>
 </template>
 
@@ -20,9 +25,27 @@
             };
         },
         mounted() {
-            for (let i = 0; i <= 500; i++) {
-                this.list.push({ name: i });
+            for (let i = 0; i <= 40; i++) {
+                this.list.push({ name: i, text: this.randomString(Math.random() * 100) });
             }
+        },
+        methods: {
+            getScroll(v) {
+                console.log(this.list, this.$refs.Scroll.getAllList());
+            },
+            change(e, item) {
+                item.text = e.target.innerText;
+            },
+            randomString(e) {
+                e = e || 32;
+                var t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
+                    a = t.length,
+                    n = "";
+                for (let i = 0; i < e; i++) {
+                    n += t.charAt(Math.floor(Math.random() * a));
+                }
+                return n;
+            },
         },
     };
 </script>
@@ -38,17 +61,29 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #2c3e50;
         width: 100%;
         height: 100%;
+    }
+    #app {
+        width: 200px;
     }
     .TestItem {
         width: 100%;
         height: 100%;
         display: flex;
+        padding: 10px;
+        box-sizing: border-box;
         align-items: center;
         justify-content: center;
+        flex-flow: column nowrap;
         flex-shrink: 0;
+        span {
+            word-break: break-all;
+        }
         &:hover {
             border-color: #66b1ff;
             border: 1px solid #66b1ff;
