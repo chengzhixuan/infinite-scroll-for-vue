@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <button @click="getScroll">获取列表</button>
-        <div style="height: 300px">
+        <div style="height: 100%">
             <Scroll ref="Scroll" :datas="list">
                 <template v-slot:default="slotProps">
                     <div class="TestItem">
@@ -25,8 +25,13 @@
             };
         },
         mounted() {
-            for (let i = 0; i <= 40; i++) {
-                this.list.push({ name: i, text: this.randomString(Math.random() * 100) });
+            let x = parseInt(Math.random() * 10);
+            for (let i = 0; i <= 4000; i++) {
+                if (i % x === 0) {
+                    this.list.push({ name: i, text: this.randomString(Math.random() * 5000) });
+                } else {
+                    this.list.push({ name: i, text: this.randomString(Math.random() * 1000) });
+                }
             }
         },
         methods: {
@@ -68,8 +73,16 @@
         width: 100%;
         height: 100%;
     }
-    #app {
-        width: 200px;
+    button {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+    .InfiniteScrollItem:nth-child(odd) {
+        background: #efefef;
+    }
+    .InfiniteScrollItem:nth-child(even) {
+        background: #fff;
     }
     .TestItem {
         width: 100%;
@@ -86,7 +99,6 @@
         }
         &:hover {
             border-color: #66b1ff;
-            border: 1px solid #66b1ff;
         }
     }
 </style>
