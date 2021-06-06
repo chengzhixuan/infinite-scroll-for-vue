@@ -48,7 +48,6 @@
         },
         mounted() {
             setTimeout(() => {
-                console.log(44444);
                 if (document.querySelector(".InfiniteScrollContainer")) {
                     this.scrollHeight = document.querySelector(".InfiniteScrollContainer").offsetHeight;
                 }
@@ -76,6 +75,7 @@
             },
             scrollTops(e) {
                 if (Math.abs(e.target.scrollTop - this.scrollTop) > this.defHeight) {
+                    console.log(e.target.scrollTop);
                     let hasTop = e.target.scrollTop > this.scrollTop; // true 往下滚动    false往上滚动
                     this.scrollTop = e.target.scrollTop;
                     this.getRenderList(hasTop ? 1 : 2);

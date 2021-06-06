@@ -1,16 +1,17 @@
 {
-    "name": "infinite-scroll-vue",
-    "version": "0.1.0",
+    "name": "infinite-scroll-for-vue",
+    "version": "1.0.2",
+    "description": "vue 无限滚动插件",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
-        "build:lib": "vue-cli-service build --target lib --name infinite-scroll-vue --dest lib  src/plugin/index.js"
+        "build:lib": "vue-cli-service build --target lib --name infinite-scroll-vue --dest dist/lib  src/plugin/index.js"
     },
     "dependencies": {
         "core-js": "^3.6.5",
-        "infinite-scroll-for-vue": "^1.0.0",
+        "infinite-scroll-for-vue": "^1.0.2",
         "vue": "^2.6.11"
     },
     "devDependencies": {
