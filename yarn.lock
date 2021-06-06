@@ -4570,6 +4570,11 @@ infer-owner@^1.0.3, infer-owner@^1.0.4:
   resolved "https://registry.npm.taobao.org/infer-owner/download/infer-owner-1.0.4.tgz#c4cefcaa8e51051c2a40ba2ce8a3d27295af9467"
   integrity sha1-xM78qo5RBRwqQLos6KPScpWvlGc=
 
+infinite-scroll-for-vue@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/infinite-scroll-for-vue/-/infinite-scroll-for-vue-1.0.0.tgz#aa45fafe9d31c83ad617d0005f591579963a77f6"
+  integrity sha512-0mA8ubqSWpGRbvXFlPKNB1zbMbd+W2hKB9kMxH9bHsNqrlxZGCcluBs789c7XQONgWbv2xvjei+2A03g7grgdQ==
+
 inflight@^1.0.4:
   version "1.0.6"
   resolved "https://registry.npm.taobao.org/inflight/download/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"

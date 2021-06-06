@@ -48,6 +48,7 @@
         },
         mounted() {
             setTimeout(() => {
+                console.log(44444);
                 if (document.querySelector(".InfiniteScrollContainer")) {
                     this.scrollHeight = document.querySelector(".InfiniteScrollContainer").offsetHeight;
                 }
