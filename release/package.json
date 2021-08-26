@@ -1,6 +1,6 @@
 {
     "name": "infinite-scroll-for-vue",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "vue 无限滚动插件",
     "main": "lib/infinite-scroll-vue.umd.min.js",
     "scripts": {
