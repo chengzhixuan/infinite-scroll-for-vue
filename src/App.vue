@@ -2,10 +2,10 @@
     <div id="app">
         <button @click="getScroll">获取列表</button>
         <div style="height: 100%">
-            <Scroll ref="Scroll" :datas="list">
+            <Scroll ref="Scroll" :datas="list" :defHeight="100">
                 <template v-slot:default="slotProps">
                     <div class="TestItem">
-                        <span>{{ slotProps.item.name }}|{{ slotProps.item.scrollTop }} | {{ slotProps.item.scrollHeight }}</span>
+                        <span>{{ slotProps.item.name }}|{{ slotProps.item.infiniteScrollTop }} | {{ slotProps.item.infiniteScrollHeight }}</span>
                         <span contenteditable @blur="(e) => change(e, slotProps.item)">{{ slotProps.item.text }}</span>
                         <input type="text" v-model="slotProps.item.text" />
                     </div>
@@ -14,7 +14,6 @@
         </div>
     </div>
 </template>
-
 <script>
     export default {
         name: "App",
@@ -26,7 +25,7 @@
         },
         mounted() {
             let x = parseInt(Math.random() * 10);
-            for (let i = 0; i <= 4000; i++) {
+            for (let i = 0; i <= 1000; i++) {
                 if (i % x === 0) {
                     this.list.push({ name: i, text: this.randomString(Math.random() * 5000) });
                 } else {
