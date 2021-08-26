@@ -16,16 +16,23 @@ $ yarn add infinite-scroll-for-vue
 ## 配置 Attributes
 ```js
 {
-    datas: {// 数据列表
+   //数据列表
+    datas: {
         default: () => {
             return [];
         },
         type: Array,
     },
-    defHeight: {// 计算默认高度
+    //计算默认高度
+    defHeight: {
         default: 50,
         type: Number,
-    }
+    },
+    // 预估一个页面+预渲染的部分能最少展示多少条数据
+    showCount: {
+        default: 30,
+        type: Number,
+    },
 }
 ```
 
