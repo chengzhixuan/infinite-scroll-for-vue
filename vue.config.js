@@ -1,5 +1,5 @@
 const path = require("path");
 module.exports = {
     outputDir: "docs",
-    publicPath: '../',
+    publicPath: 'infinite-scroll-for-vue',
 }
